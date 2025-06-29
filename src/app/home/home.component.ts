@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import {BlockButtonComponent} from "../.shared/block-button/block-button.component";
 import {Router} from "@angular/router";
+import {NavigationComponent} from "../navigation/navigation.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-    imports: [
-        BlockButtonComponent
-    ],
+  imports: [
+    BlockButtonComponent,
+    NavigationComponent
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
