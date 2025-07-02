@@ -1,4 +1,9 @@
-<div *ngIf="!open" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 80px; height: 100vh;">
+<div *ngIf="!open" class="text-bg-dark responsive-bar-inv">
+    <button class="btn btn-outline-light" type="button" (click)="toggleMenu()">
+        <i class="bi bi-list"></i>
+    </button>
+</div>
+<div *ngIf="!open" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark responsive-bar">
     <button class="btn btn-outline-light" type="button" (click)="toggleMenu()">
         <i class="bi bi-list"></i>
     </button>
