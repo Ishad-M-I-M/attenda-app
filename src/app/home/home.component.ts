@@ -23,7 +23,7 @@ export class HomeComponent {
     total: string | number = "N/A"
     present: string | number = "N/A"
 
-    constructor(private router: Router) {
+    constructor() {
     }
 
     attendance_summary = {
@@ -88,13 +88,6 @@ export class HomeComponent {
                 }
             ]
         }
-    }
-
-    navigate(path: string) {
-        this.router.navigate([path]).then(r => {
-        }).catch(error => {
-            console.error('Navigation error:', error);
-        });
     }
 
     ngOnInit() {
