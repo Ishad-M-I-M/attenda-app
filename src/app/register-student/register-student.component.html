@@ -1,1 +1,44 @@
-<p>register-student works!</p>
+<app-page-container title="Register Student">
+    <form>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter student's name" required>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea class="form-control" id="address" rows="3" placeholder="Enter address" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="grade" class="form-label">Grade</label>
+            <select class="form-select" id="grade" required>
+                <option value="" disabled selected>Select Grade</option>
+                <option *ngFor="let grade of grades" [value]="grade">Grade {{grade}}</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="medium" class="form-label">Medium</label>
+            <select class="form-select" id="medium" required>
+                <option value="" disabled selected>Select Medium</option>
+                <option value="Sinhala">Sinhala</option>
+                <option value="Tamil">Tamil</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <select class="form-select" id="gender" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="mobile" class="form-label">Mobile Number</label>
+            <input type="tel" class="form-control" id="mobile" placeholder="Enter mobile number" required>
+        </div>
+        <div class="mb-3">
+            <label for="fatherName" class="form-label">Father's Name</label>
+            <input type="text" class="form-control" id="fatherName" placeholder="Enter father's name" required>
+        </div>
+        <button type="submit" class="btn btn-primary form-control">Register</button>
+    </form>
+</app-page-container>

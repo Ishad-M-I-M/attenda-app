@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {PageContainerComponent} from "../.shared/page-container/page-container.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {Router} from "@angular/router";
 
 interface Student {
     id: number;
@@ -35,6 +36,8 @@ export class StudentsComponent {
 
     showContent: boolean = false;
     students: Student[] = [];
+
+    constructor(private router: Router) {}
 
     // TODO: Remove after implementing actual data fetching
     exampleStudents: Student[] = [
@@ -116,5 +119,14 @@ export class StudentsComponent {
         this.students = this.exampleStudents.filter(student =>
             student.name.toLowerCase().includes(this.searchName.toLowerCase())
         );
+    }
+
+
+    navigate(path: string) {
+        this.router.navigate([path]).then(r => {
+            console.log('Navigation successful:', r);
+        }).catch(error => {
+            console.error('Navigation error:', error);
+        });
     }
 }

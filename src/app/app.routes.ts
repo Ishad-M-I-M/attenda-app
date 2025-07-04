@@ -34,6 +34,10 @@ export const routes: Routes = [
         component: StudentsComponent
     },
     {
+        path: 'students/create',
+        loadComponent: () => import('./register-student/register-student.component').then(m => m.RegisterStudentComponent)
+    },
+    {
         path: 'reports',
         component: ReportsComponent
     },

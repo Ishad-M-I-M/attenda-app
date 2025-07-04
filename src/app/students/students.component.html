@@ -54,32 +54,34 @@
     </div>
     <div>
         <ng-container *ngIf="showContent; else noContent">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Grade</th>
-                    <th>Medium</th>
-                    <th>Gender</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let student of students">
-                    <td>{{student.id}}</td>
-                    <td>{{student.name}}</td>
-                    <td>{{student.grade}}</td>
-                    <td>{{student.medium}}</td>
-                    <td>{{student.gender}}</td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="height: 70vh; overflow-y: auto;">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Grade</th>
+                        <th>Medium</th>
+                        <th>Gender</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let student of students">
+                        <td>{{student.id}}</td>
+                        <td>{{student.name}}</td>
+                        <td>{{student.grade}}</td>
+                        <td>{{student.medium}}</td>
+                        <td>{{student.gender}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </ng-container>
         <ng-template #noContent>
             <p class="text-center">Please search for a student or apply a filter to see results.</p>
         </ng-template>
     </div>
     <div class="fixed-bottom text-center mb-3 p-3">
-        <button class="btn btn-success form-control" type="button">Add new student</button>
+        <button class="btn btn-success form-control" type="button" (click)="navigate('/students/create')">Add new student</button>
     </div>
 </app-page-container>
