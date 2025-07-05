@@ -30,6 +30,10 @@ export const routes: Routes = [
         component: ClassesComponent,
     },
     {
+        path: 'classes/create',
+        loadComponent: () => import('./register-class/register-class.component').then(m => m.RegisterClassComponent)
+    },
+    {
         path: 'students',
         component: StudentsComponent
     },

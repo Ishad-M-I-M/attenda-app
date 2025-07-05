@@ -3,14 +3,7 @@ import {PageContainerComponent} from "../.shared/page-container/page-container.c
 import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
-
-interface Student {
-    id: number;
-    name: string;
-    grade: number;
-    medium: string;
-    gender: string;
-}
+import {Student} from "../interfaces";
 
 @Component({
     selector: 'app-students',
