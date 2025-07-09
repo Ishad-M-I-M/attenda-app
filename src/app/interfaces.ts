@@ -12,4 +12,6 @@ export interface Class {
     medium: string;
     gender: string | null;
     teacher: string;
+    totalStudents: number;
+    students?: Student[]; // Optional property to hold students in the class
 }

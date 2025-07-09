@@ -48,5 +48,9 @@ export const routes: Routes = [
     {
         path: 'management',
         component: ManagementComponent
+    },
+    {
+        path: 'mark-attendance',
+        loadComponent: () => import('./mark-attendance/mark-attendance.component').then(m => m.MarkAttendanceComponent)
     }
 ];
