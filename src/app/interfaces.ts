@@ -15,3 +15,9 @@ export interface Class {
     totalStudents: number;
     students?: Student[]; // Optional property to hold students in the class
 }
+
+export interface AttendanceRecord {
+    studentId: number;
+    studentName: string;
+    attended: boolean;
+}
