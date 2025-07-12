@@ -1,0 +1,87 @@
+<app-page-container title="Students">
+    <div class="card p-3 mb-3">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search by student name"
+                   aria-label="Search by student name" aria-describedby="search" [(ngModel)]="searchName">
+            <button class="btn btn-outline-secondary" type="button" id="search" (click)="search()">Search</button>
+        </div>
+        <div class="accordion" id="filtersAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#filters" aria-expanded="false" aria-controls="filters" id="accordion">
+                        {{filterText}}
+                    </button>
+                </h2>
+                <div id="filters" class="accordion-collapse collapse" data-bs-parent="#filtersAccordion">
+                    <div class="accordion-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4 mb-3">
+                                <select class="form-select" aria-label="Select Grade" [(ngModel)]="selectedGrade">
+                                    <option value="null" disabled selected>Select Grade</option>
+                                    <option *ngFor="let grade of grades" [value]="grade">Grade {{grade}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <select class="form-select" aria-label="Select Gender" [(ngModel)]="selectedGender">
+                                    <option value="null" disabled selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <select class="form-select" aria-label="Select Medium" [(ngModel)]="selectedMedium">
+                                    <option value="null" disabled selected>Select Medium</option>
+                                    <option value="Sinhala">Sinhala</option>
+                                    <option value="Tamil">Tamil</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary form-control" type="button" (click)="filter()">
+                                Filter
+                            </button>
+                        </div>
+                        <div>
+                            <button class="btn btn-secondary form-control" type="button" (click)="clearFilters()">
+                                Clear filters
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <ng-container *ngIf="showContent; else noContent">
+            <div style="height: 70vh; overflow-y: auto;">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Grade</th>
+                        <th>Medium</th>
+                        <th>Gender</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let student of students">
+                        <td>{{student.id}}</td>
+                        <td>{{student.name}}</td>
+                        <td>{{student.grade}}</td>
+                        <td>{{student.medium}}</td>
+                        <td>{{student.gender}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-container>
+        <ng-template #noContent>
+            <p class="text-center">Please search for a student or apply a filter to see results.</p>
+        </ng-template>
+    </div>
+    <div class="fixed-bottom text-center mb-3 p-3">
+        <button class="btn btn-success form-control" type="button" (click)="navigate('/students/create')">Add new student</button>
+    </div>
+</app-page-container>

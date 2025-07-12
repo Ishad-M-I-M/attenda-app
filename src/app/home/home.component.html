@@ -1,0 +1,61 @@
+<div style="display: flex; height: 100vh;">
+    <app-navigation></app-navigation>
+    <div class="container mt-5 pt-3">
+        <div class="row mb-3">
+            <div class="col-12">
+                <h1 class="text-center">Welcome to Attenda</h1>
+                <p class="text-center">Your attendance management system</p>
+            </div>
+        </div>
+        <div id="summary-section">
+            <div class="mb-3 row">
+                <div class="col-4">
+                    <label for="date" class="form-label">Date</label>
+                </div>
+                <div class="col-8">
+                    <input id="date" class="form-control" type="date"
+                           [(ngModel)]="selectedDate"
+                           name="date">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-4">
+                    <label for="class" class="form-label">Class</label>
+                </div>
+                <div class="col-8">
+                    <select id="class" class="form-select" [(ngModel)]="selectedClass" name="class">
+                        <option [ngValue]="null" selected>All</option>
+                        <option *ngFor="let cls of classes" [ngValue]="cls">{{ cls.grade + " | " + cls.medium + ( cls.gender ? " | " + cls.gender.toUpperCase() : "" ) }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3 mb-3">
+                <div class="col-6">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            Total Students
+                        </div>
+                        <div class="card-body">
+                            <h1 class="display-4">{{total}}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            Present Students
+                        </div>
+                        <div class="card-body">
+                            <h1 class="display-4">{{present}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <canvas id="attendance-summary"></canvas>
+        </div>
+        <div class="fixed-bottom text-center mb-3 p-3">
+            <button class="btn btn-success form-control" type="button" [disabled]="selectedClass == null" (click)="navigate('/mark-attendance', {'class-id': selectedClass?.id, 'date': selectedDate})">Mark Attendance</button>
+        </div>
+
+    </div>
+</div>

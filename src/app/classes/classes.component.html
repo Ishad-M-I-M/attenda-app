@@ -1,0 +1,27 @@
+<app-page-container title="Classes">
+    <div class="container-fluid" style="height: 85vh; overflow-y: auto;">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let classItem of classes">
+                <div class="card mb-3 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <div class="display-4 text-primary">{{ classItem.grade }}</div>
+                        <p class="card-text">
+                            <i class="bi bi-book text-info"></i> Medium: <span class="text-muted">{{ classItem.medium }}</span>
+                        </p>
+                        <p class="card-text">
+                            <i *ngIf="classItem.gender === 'Male'" class="bi bi-gender-male text-primary"></i>
+                            <i *ngIf="classItem.gender === 'Female'" class="bi bi-gender-female text-danger"></i>
+                            <i *ngIf="!classItem.gender" class="bi bi-gender-ambiguous text-secondary"></i>
+                        </p>
+                        <p class="card-text">
+                            <i class="bi bi-person text-success"></i> Teacher: <strong>{{ classItem.teacher }}</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-bottom text-center mb-3 p-3">
+        <button class="btn btn-success form-control" type="button" (click)="navigate('/classes/create')">Add new class</button>
+    </div>
+</app-page-container>

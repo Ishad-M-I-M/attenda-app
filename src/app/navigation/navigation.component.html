@@ -1,0 +1,56 @@
+<div *ngIf="!open" class="text-bg-dark responsive-bar-inv">
+    <button class="btn btn-outline-light" type="button" (click)="toggleMenu()">
+        <i class="bi bi-list"></i>
+    </button>
+</div>
+<div *ngIf="!open" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark responsive-bar">
+    <button class="btn btn-outline-light" type="button" (click)="toggleMenu()">
+        <i class="bi bi-list"></i>
+    </button>
+</div>
+<div *ngIf="open" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100vh;">
+    <div class="d-inline-flex">
+        <a href="/"
+           class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-4">Attenda</span>
+        </a>
+        <button class="btn btn-outline-light ms-auto" type="button" (click)="toggleMenu()">
+            <i class="bi bi-x"></i>
+        </button>
+
+    </div>
+
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item mb-3">
+            <a href="javascript:void(0)" class="nav-link text-white" aria-current="page" (click)="toggleMenu()">
+                <i class="bi bi-house"></i>
+                Home
+            </a>
+        </li>
+        <li class="nav-item mb-3">
+            <a href="javascript:void(0)" class="nav-link text-white" (click)="navigate('/classes')" >
+                <i class="bi bi-columns"></i>
+                Classes
+            </a>
+        </li>
+        <li class="nav-item mb-3">
+            <a href="javascript:void(0)" class="nav-link text-white" (click)="navigate('/students')">
+                <i class="bi bi-person-lines-fill"></i>
+                Students
+            </a>
+        </li>
+        <li class="nav-item mb-3">
+            <a href="javascript:void(0)" class="nav-link text-white" (click)="navigate('/reports')">
+                <i class="bi bi-card-checklist"></i>
+                Reports
+            </a>
+        </li>
+        <li class="nav-item mb-3">
+            <a href="javascript:void(0)" class="nav-link text-white" (click)="navigate('/management')">
+                <i class="bi bi-sliders"></i>
+                Management
+            </a>
+        </li>
+    </ul>
+</div>
