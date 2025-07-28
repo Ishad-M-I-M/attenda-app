@@ -6,6 +6,7 @@ import Chart from 'chart.js/auto';
 import {FormsModule} from "@angular/forms";
 import {NgForOf} from "@angular/common";
 import {Class} from "../interfaces";
+import {ClassesService} from "../services/classes.service";
 
 @Component({
     selector: 'app-home',
@@ -26,7 +27,7 @@ export class HomeComponent {
     selectedDate: String | null = null;
     as: any;
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private classService: ClassesService) {
     }
 
     selectedClass: Class | null = null;
@@ -35,11 +36,15 @@ export class HomeComponent {
 
     ngOnInit() {
         // TODO: Fetch from the end points
-        this.classes = [
-            {id: 1, grade: 1, medium: 'Sinhala', gender: null, teacher: 'Mr. Perera', totalStudents: 50},
-            {id: 2, grade: 1, medium: 'Tamil', gender: null, teacher: 'Ms. Nirmala', totalStudents: 40},
-            {id: 10, grade: 10, medium: 'Sinhala', gender: 'Boys', teacher: 'Mr. Perera', totalStudents: 30},
-        ];
+        this.classService.getClasses().subscribe({
+            next: data => {
+                console.log('Classes fetched successfully:', data);
+                this.classes = data as Class[];
+            },
+            error: error => {
+                console.error('Error fetching classes:', error);
+            }
+        })
         this.selectedDate = new Date().toISOString().split('T')[0]; // Set to today's date in YYYY-MM-DD format
 
         let data = {
