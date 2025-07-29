@@ -40,13 +40,17 @@ export class MarkAttendanceComponent {
                 return;
             }
 
-            this.classService.getClassAttendances(this.classId, this.date).subscribe(classAttendances => {
-                this.classAttendance = classAttendances as ClassAttendanceResponse;
+            this.classService.getClassAttendances(this.classId, this.date).subscribe({
+                next: classAttendances => {
+                    this.classAttendance = classAttendances as ClassAttendanceResponse;
+                    this.total = this.classAttendance.students.length;
+                    this.present = this.classAttendance.students.filter(s => s.present).length;
+                },
+                error: error => {
+                    console.error(error);
+                }
             })
-
         })
-
-
     }
 
     navigate(path: string) {
@@ -57,5 +61,21 @@ export class MarkAttendanceComponent {
         });
     }
 
-    submitAttendance() {}
+    submitAttendance() {
+        this.classService.saveClassAttendance(
+            this.classAttendance as ClassAttendanceResponse
+        ).subscribe({
+            next: () => {
+                console.log('Saved successfully');
+            },
+            error: error => {
+                console.error(error);
+            }
+        })
+    }
+
+    updatePresentCount(input: HTMLInputElement) {
+        if (input.checked) this.present += 1;
+        else this.present -= 1;
+    }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import {ClassAttendanceResponse} from "../interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +27,9 @@ export class ClassesService {
         }
       })
   }
+
+  saveClassAttendance(data: ClassAttendanceResponse) {
+      return this.http.post(this.url + 'attendance', data);
+  }
+
 }

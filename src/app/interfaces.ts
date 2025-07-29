@@ -29,4 +29,5 @@ export interface ClassAttendanceResponse {
         student_name: string;
         present: boolean;
     }[];
+    date: Date;
 }
