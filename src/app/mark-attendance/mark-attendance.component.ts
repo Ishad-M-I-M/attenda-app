@@ -5,6 +5,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {ClassAttendanceResponse} from "../interfaces";
 import {FormsModule} from "@angular/forms";
 import {ClassesService} from "../services/classes.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-mark-attendance',
@@ -27,7 +28,10 @@ export class MarkAttendanceComponent {
 
     classAttendance: ClassAttendanceResponse | null = null;
 
-    constructor(private route: ActivatedRoute, private router: Router, private classService: ClassesService) {
+    constructor(private route: ActivatedRoute,
+                private router: Router,
+                private classService: ClassesService,
+                private toastr: ToastrService,) {
     }
 
     ngOnInit() {
@@ -47,7 +51,8 @@ export class MarkAttendanceComponent {
                     this.present = this.classAttendance.students.filter(s => s.present).length;
                 },
                 error: error => {
-                    console.error(error);
+                    console.error('Error fetching class attendance:', error);
+                    this.toastr.error('Failed to fetch class attendance. Please try again later.');
                 }
             })
         })
@@ -66,10 +71,11 @@ export class MarkAttendanceComponent {
             this.classAttendance as ClassAttendanceResponse
         ).subscribe({
             next: () => {
-                console.log('Saved successfully');
+                this.toastr.success('Class Attendance successfully created!');
             },
             error: error => {
-                console.error(error);
+                console.error('Error saving class attendance:', error);
+                this.toastr.error('Failed to save class attendance. Please try again later.');
             }
         })
     }
