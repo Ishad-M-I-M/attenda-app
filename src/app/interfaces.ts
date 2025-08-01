@@ -1,5 +1,5 @@
 export interface Student {
-    id: number;
+    ID: number;
     name: string;
     grade: number;
     medium: string;

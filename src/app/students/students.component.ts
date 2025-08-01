@@ -4,6 +4,8 @@ import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Student} from "../interfaces";
+import {StudentsService} from "../services/students.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-students',
@@ -30,36 +32,10 @@ export class StudentsComponent {
     showContent: boolean = false;
     students: Student[] = [];
 
-    constructor(private router: Router) {}
+    constructor(private router: Router,
+                private studentsService: StudentsService,
+                private toastr: ToastrService) {}
 
-    // TODO: Remove after implementing actual data fetching
-    exampleStudents: Student[] = [
-        { id: 1, name: 'John Doe', grade: 10, medium: 'Sinhala', gender: 'Male' },
-        { id: 2, name: 'Jane Smith', grade: 8, medium: 'Tamil', gender: 'Female' },
-        { id: 3, name: 'Michael Johnson', grade: 11, medium: 'Sinhala', gender: 'Male' },
-        { id: 4, name: 'Emily Davis', grade: 7, medium: 'Tamil', gender: 'Female' },
-        { id: 5, name: 'Chris Brown', grade: 9, medium: 'Sinhala', gender: 'Male' },
-        { id: 6, name: 'Sophia Wilson', grade: 6, medium: 'Tamil', gender: 'Female' },
-        { id: 7, name: 'Daniel Lee', grade: 5, medium: 'Sinhala', gender: 'Male' },
-        { id: 8, name: 'Olivia Martin', grade: 4, medium: 'Tamil', gender: 'Female' },
-        { id: 9, name: 'James Anderson', grade: 3, medium: 'Sinhala', gender: 'Male' },
-        { id: 10, name: 'Isabella Thomas', grade: 2, medium: 'Tamil', gender: 'Female' },
-        { id: 11, name: 'Ethan Harris', grade: 1, medium: 'Sinhala', gender: 'Male' },
-        { id: 12, name: 'Mia Clark', grade: 11, medium: 'Tamil', gender: 'Female' },
-        { id: 13, name: 'Alexander Lewis', grade: 10, medium: 'Sinhala', gender: 'Male' },
-        { id: 14, name: 'Charlotte Walker', grade: 9, medium: 'Tamil', gender: 'Female' },
-        { id: 15, name: 'Benjamin Hall', grade: 8, medium: 'Sinhala', gender: 'Male' },
-        { id: 16, name: 'Amelia Allen', grade: 7, medium: 'Tamil', gender: 'Female' },
-        { id: 17, name: 'Lucas Young', grade: 6, medium: 'Sinhala', gender: 'Male' },
-        { id: 18, name: 'Harper King', grade: 5, medium: 'Tamil', gender: 'Female' },
-        { id: 19, name: 'Henry Wright', grade: 4, medium: 'Sinhala', gender: 'Male' },
-        { id: 20, name: 'Ella Scott', grade: 3, medium: 'Tamil', gender: 'Female' },
-        { id: 21, name: 'Jack Green', grade: 2, medium: 'Sinhala', gender: 'Male' },
-        { id: 22, name: 'Ava Adams', grade: 1, medium: 'Tamil', gender: 'Female' },
-        { id: 23, name: 'William Baker', grade: 11, medium: 'Sinhala', gender: 'Male' },
-        { id: 24, name: 'Sophia Nelson', grade: 10, medium: 'Tamil', gender: 'Female' },
-        { id: 25, name: 'James Carter', grade: 9, medium: 'Sinhala', gender: 'Male' }
-    ];
 
     filter() {
         // @ts-ignore
@@ -83,9 +59,22 @@ export class StudentsComponent {
         }
 
         this.filterText = text;
-
-        //TODO: Replace with actual data fetching logic based on filters
-        this.students = this.exampleStudents;
+        this.studentsService.getStudents(null, this.selectedGrade, this.selectedGender, this.selectedMedium).subscribe(
+            {
+                next: result => {
+                    console.log('Students fetched successfully:', result);
+                    this.students = result as Student[];
+                    if (this.students.length === 0) {
+                        this.toastr.info("No students found with the selected filters.");
+                    }
+                },
+                error: error => {
+                    console.error('Error fetching students:', error);
+                    this.students = [];
+                    this.toastr.error("Failed to fetch students. Please try again later.");
+                }
+            }
+        );
     }
 
     clearFilters() {
@@ -108,10 +97,22 @@ export class StudentsComponent {
 
         this.showContent = true;
 
-        // TODO: Replace with actual data fetching logic based on search
-        this.students = this.exampleStudents.filter(student =>
-            student.name.toLowerCase().includes(this.searchName.toLowerCase())
-        );
+        this.studentsService.getStudents(this.searchName, null, null, null).subscribe(
+            {
+                next: result => {
+                    console.log('Students fetched successfully:', result);
+                    this.students = result as Student[];
+                    if (this.students.length === 0) {
+                        this.toastr.info("No students found with the given name.");
+                    }
+                },
+                error: error => {
+                    console.error('Error fetching students:', error);
+                    this.students = [];
+                    this.toastr.error("Failed to fetch students. Please try again later.");
+                }
+            }
+        )
     }
 
 
