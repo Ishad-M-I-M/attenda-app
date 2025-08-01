@@ -32,4 +32,12 @@ export class ClassesService {
       return this.http.post(this.url + 'attendance', data);
   }
 
+  getAttendanceSummary(date: string) {
+      return this.http.get(this.url + 'attendance/summary', {
+          params: {
+              date: date,
+          }
+      });
+  }
+
 }

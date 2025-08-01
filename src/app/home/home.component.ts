@@ -5,8 +5,9 @@ import {Router} from "@angular/router";
 import Chart from 'chart.js/auto';
 import {FormsModule} from "@angular/forms";
 import {NgForOf} from "@angular/common";
-import {Class} from "../interfaces";
+import {AttendanceSummaryResponse, Class} from "../interfaces";
 import {ClassesService} from "../services/classes.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-home',
@@ -24,10 +25,12 @@ export class HomeComponent {
     total: number = 0;
     present: number = 0;
 
-    selectedDate: String | null = null;
-    as: any;
+    selectedDate: string | null = null;
+    as: AttendanceSummaryResponse | null = null;
 
-    constructor(private router: Router, private classService: ClassesService) {
+    constructor(private router: Router,
+                private classService: ClassesService,
+                private toastr: ToastrService) {
     }
 
     selectedClass: Class | null = null;
@@ -35,7 +38,6 @@ export class HomeComponent {
     classes: Class[] = [];
 
     ngOnInit() {
-        // TODO: Fetch from the end points
         this.classService.getClasses().subscribe({
             next: data => {
                 console.log('Classes fetched successfully:', data);
@@ -46,53 +48,42 @@ export class HomeComponent {
             }
         })
         this.selectedDate = new Date().toISOString().split('T')[0]; // Set to today's date in YYYY-MM-DD format
+        this.loadChart(this.selectedDate);
+    }
 
-        let data = {
-            labels: ['Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grade 6', 'Grade 7', 'Grade 8',
-                'Grade 9', 'Grade 10', 'Grade 11'],
+    renderChart(data: AttendanceSummaryResponse) {
+        const canvas = document.getElementById('attendance-summary') as HTMLCanvasElement | null;
+        if (this.chartInstance) {
+            this.chartInstance.destroy(); // Destroy previous instance if it exists
+        }
+        const labels = data.classes.map(c => c.class);
+        const totalData = data.classes.map(c => c.total);
+        const presentData = data.classes.map(c => c.present);
+
+        const chartData = {
+            labels: labels,
             datasets: [
                 {
                     label: 'Total',
-                    data: [40, 38, 36, 61, 50, 25, 26, 30, 29, 15, 21],
+                    data: totalData,
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
                     tension: 0.1
                 },
                 {
                     label: 'Present',
-                    data: [38, 38, 30, 40, 25, 20, 20, 26, 27, 15, 18],
+                    data: presentData,
                     fill: false,
                     borderColor: 'rgb(255, 99, 132)',
                     tension: 0.1
                 }
             ]
-        }
-
-        this.renderChart(data, this.calculateTotal(data), this.calculatePresent(data))
-    }
-
-    private calculateTotal(data: any): number {
-        return data.datasets[0].data.reduce((sum: number, current: number) => sum + current, 0);
-    }
-
-    private calculatePresent(data: any): number {
-        return data.datasets[1].data.reduce((sum: number, current: number) => sum + current, 0);
-    }
-
-    renderChart(data: any, total: number, present: number) {
-        const canvas = document.getElementById('attendance-summary') as HTMLCanvasElement | null;
-        if (this.chartInstance) {
-            this.chartInstance.destroy(); // Destroy previous instance if it exists
-        }
-
-        this.total = total;
-        this.present = present;
-
+        };
 
         if (canvas) {
             this.chartInstance = new Chart(canvas, {
                 type: 'line',
-                data: data,
+                data: chartData,
                 options: {
                     scales: {
                         y: {
@@ -111,6 +102,26 @@ export class HomeComponent {
             console.log('Navigation successful:', r);
         }).catch(error => {
             console.error('Navigation error:', error);
+        });
+    }
+
+    updateChart(dateInput: HTMLInputElement) {
+        this.loadChart(dateInput.value)
+    }
+
+    loadChart(date: string) {
+        this.classService.getAttendanceSummary(date).subscribe({
+            next: data => {
+                console.log('Attendance summary fetched successfully:', data);
+                this.as = data as AttendanceSummaryResponse;
+                this.total = this.as.total;
+                this.present = this.as.present;
+                this.renderChart(this.as);
+            },
+            error: error => {
+                console.error('Error fetching attendance summary:', error);
+                this.toastr.error("Failed to fetch attendance summary.");
+            }
         });
     }
 }

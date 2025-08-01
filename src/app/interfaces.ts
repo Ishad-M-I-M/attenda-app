@@ -31,3 +31,14 @@ export interface ClassAttendanceResponse {
     }[];
     date: Date;
 }
+
+export interface AttendanceSummaryResponse {
+    total: number;
+    present: number;
+    date: Date;
+    classes: {
+        class: string;
+        total: number;
+        present: number;
+    }[];
+}

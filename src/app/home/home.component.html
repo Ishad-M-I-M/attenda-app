@@ -15,7 +15,10 @@
                 <div class="col-8">
                     <input id="date" class="form-control" type="date"
                            [(ngModel)]="selectedDate"
-                           name="date">
+                           name="date"
+                           (change)="updateChart(input)"
+                           #input
+                    >
                 </div>
             </div>
             <div class="mb-3 row">
