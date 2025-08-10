@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {Student} from "../interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,9 @@ export class StudentsService {
         'Accept': 'application/json',
       }
     });
+  }
+
+  createStudent(data: Student) {
+    return this.http.post(this.url, data)
   }
 }

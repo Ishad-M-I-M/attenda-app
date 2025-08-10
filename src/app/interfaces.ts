@@ -1,9 +1,12 @@
 export interface Student {
-    ID: number;
+    ID?: number;
     name: string;
     grade: number;
     medium: string;
     gender: string;
+    address: string;
+    mobile: string;
+    fatherName: string;
 }
 
 export interface Teacher {
