@@ -19,6 +19,15 @@ export class ClassesService {
     });
   }
 
+  createClass(data: any) {
+    return this.http.post(this.url, data, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        }
+    });
+  }
+
   getClassAttendances(classId: string, date: string) {
       return this.http.get(this.url + 'attendance', {
         params: {
