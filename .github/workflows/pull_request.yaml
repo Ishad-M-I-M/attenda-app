@@ -49,6 +49,14 @@ jobs:
       - name: install frontend dependencies
         run: pnpm install
 
+      - name: Generate environment.ts from template
+        run: |
+          sed -e "s|\${API_URL}|${{ secrets.API_URL }}|g" \
+              -e "s|\${SIGNIN_REDIRECT_URL}|${{ secrets.SIGNIN_REDIRECT_URL }}|g" \
+              -e "s|\${CLIENT_ID}|${{ secrets.CLIENT_ID }}|g" \
+              -e "s|\${ASGARDEO_ORG}|${{ secrets.ASGARDEO_ORG }}|g" \
+              .github/workflows/resources/environment.ts.template > src/environments/environment.ts
+
       - name: Build app bundle
         run: pnpm tauri build
 
@@ -100,6 +108,14 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Generate environment.ts from template
+        run: |
+          sed -e "s|\${API_URL}|${{ secrets.API_URL }}|g" \
+              -e "s|\${SIGNIN_REDIRECT_URL}|${{ secrets.SIGNIN_REDIRECT_URL }}|g" \
+              -e "s|\${CLIENT_ID}|${{ secrets.CLIENT_ID }}|g" \
+              -e "s|\${ASGARDEO_ORG}|${{ secrets.ASGARDEO_ORG }}|g" \
+              .github/workflows/resources/environment.ts.template > src/environments/environment.ts
 
       - name: Build app bundle
         run: pnpm tauri android build -v
