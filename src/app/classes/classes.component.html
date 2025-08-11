@@ -4,17 +4,12 @@
             <div class="col-md-4" *ngFor="let classItem of classes">
                 <div class="card mb-3 shadow-sm border-0">
                     <div class="card-body text-center">
-                        <div class="display-4 text-primary">{{ classItem.grade }}</div>
+                        <h4 class="text-primary">{{ classItem.name }}</h4>
                         <p class="card-text">
-                            <i class="bi bi-book text-info"></i> Medium: <span class="text-muted">{{ classItem.medium }}</span>
+                            <span class="text-muted">{{ classItem.description }}</span>
                         </p>
                         <p class="card-text">
-                            <i *ngIf="classItem.gender === 'Male'" class="bi bi-gender-male text-primary"></i>
-                            <i *ngIf="classItem.gender === 'Female'" class="bi bi-gender-female text-danger"></i>
-                            <i *ngIf="!classItem.gender" class="bi bi-gender-ambiguous text-secondary"></i>
-                        </p>
-                        <p class="card-text">
-                            <i class="bi bi-person text-success"></i> Teacher: <strong>{{ classItem.teacher }}</strong>
+                            <i class="bi bi-person text-success"></i> Teacher: <strong>{{ classItem.teacher.name }}</strong>
                         </p>
                     </div>
                 </div>

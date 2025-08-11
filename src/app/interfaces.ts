@@ -1,23 +1,47 @@
 export interface Student {
-    id: number;
+    ID?: number;
     name: string;
     grade: number;
     medium: string;
     gender: string;
+    address: string;
+    mobile: string;
+    fatherName: string;
+}
+
+export interface Teacher {
+    ID: number;
+    name: string;
+    gender: string;
+    mobile: string;
 }
 
 export interface Class {
-    id: number;
-    grade: number;
-    medium: string;
-    gender: string | null;
-    teacher: string;
-    totalStudents: number;
-    students?: Student[]; // Optional property to hold students in the class
+    ID: number;
+    name: string;
+    description: string;
+    teacher_id: number;
+    teacher: Teacher;
 }
 
-export interface AttendanceRecord {
-    studentId: number;
-    studentName: string;
-    attended: boolean;
+export interface ClassAttendanceResponse {
+    class_id: number;
+    class_name: string;
+    students: {
+        student_id: number;
+        student_name: string;
+        present: boolean;
+    }[];
+    date: Date;
+}
+
+export interface AttendanceSummaryResponse {
+    total: number;
+    present: number;
+    date: Date;
+    classes: {
+        class: string;
+        total: number;
+        present: number;
+    }[];
 }

@@ -1,35 +1,23 @@
 <app-page-container title="Create new class">
-    <form>
+    <form (ngSubmit)="registerClass(form)" class="container mt-3" #form="ngForm">
         <div class="mb-3">
-            <label for="grades" class="form-label">Grades</label>
-            <select id="grades" class="form-select" [(ngModel)]="selectedGrade" name="grades">
-                <option *ngFor="let grade of grades" [value]="grade">Grade {{ grade }}</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="gender" class="form-label">Gender</label>
-            <select id="gender" class="form-select" [(ngModel)]="selectedGender" name="gender">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="null">Both</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="medium" class="form-label">Medium</label>
-            <select id="medium" class="form-select" [(ngModel)]="selectedMedium" name="medium">
-                <option value="Sinhala">Sinhala</option>
-                <option value="Tamil">Tamil</option>
-            </select>
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter class name" required
+                   name="name" ngModel #name="ngModel"/>
         </div>
         <div class="mb-3">
             <label for="teacher" class="form-label">Teacher</label>
-            <select id="teacher" class="form-select" [(ngModel)]="selectedTeacher" name="teacher">
-                <option *ngFor="let teacher of teachers" [value]="teacher">{{ teacher }}</option>
+            <select id="teacher" class="form-select" [(ngModel)]="selectedTeacher" name="teacher" ngModel
+                #teacher="ngModel" required>
+                <option *ngFor="let teacher of teachers" [value]="teacher.id">{{ teacher.name }}
+                </option>
             </select>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea id="description" class="form-control" rows="3" [(ngModel)]="description" name="description"></textarea>
+            <textarea id="description" class="form-control" rows="3"  name="description" ngModel
+                      #description="ngModel">
+            </textarea>
         </div>
         <button type="submit" class="btn btn-primary form-control">Submit</button>
     </form>

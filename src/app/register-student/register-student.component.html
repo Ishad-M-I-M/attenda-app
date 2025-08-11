@@ -1,43 +1,68 @@
 <app-page-container title="Register Student">
-    <form>
+    <form #form="ngForm" (ngSubmit)="registerStudent(form)" class="container mt-3">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter student's name" required>
+            <input type="text" class="form-control" id="name" placeholder="Enter student's name" required
+            #name="ngModel" ngModel name="name">
+            <div *ngIf="form.submitted && name.invalid" class="text-danger">
+                Name is required.
+            </div>
         </div>
         <div class="mb-3">
             <label for="address" class="form-label">Address</label>
-            <textarea class="form-control" id="address" rows="3" placeholder="Enter address" required></textarea>
+            <textarea class="form-control" id="address" rows="3" placeholder="Enter address" required
+            ngModel name="address" #address="ngModel"></textarea>
+            <div *ngIf="form.submitted && address.invalid" class="text-danger">
+                Address is required.
+            </div>
         </div>
         <div class="mb-3">
             <label for="grade" class="form-label">Grade</label>
-            <select class="form-select" id="grade" required>
+            <select class="form-select" id="grade" required ngModel name="grade" #grade="ngModel">
                 <option value="" disabled selected>Select Grade</option>
                 <option *ngFor="let grade of grades" [value]="grade">Grade {{grade}}</option>
             </select>
+            <div *ngIf="form.submitted && grade.invalid" class="text-danger">
+                Grade is required.
+            </div>
         </div>
         <div class="mb-3">
             <label for="medium" class="form-label">Medium</label>
-            <select class="form-select" id="medium" required>
+            <select class="form-select" id="medium" required ngModel name="medium" #medium="ngModel">
                 <option value="" disabled selected>Select Medium</option>
                 <option value="Sinhala">Sinhala</option>
                 <option value="Tamil">Tamil</option>
             </select>
+            <div *ngIf="form.submitted && medium.invalid" class="text-danger">
+                Medium is required.
+            </div>
         </div>
         <div class="mb-3">
             <label for="gender" class="form-label">Gender</label>
-            <select class="form-select" id="gender" required>
+            <select class="form-select" id="gender" required ngModel name="gender" #gender="ngModel">
                 <option value="" disabled selected>Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
+            <div *ngIf="form.submitted && gender.invalid" class="text-danger">
+                Gender is required.
+            </div>
         </div>
         <div class="mb-3">
             <label for="mobile" class="form-label">Mobile Number</label>
-            <input type="tel" class="form-control" id="mobile" placeholder="Enter mobile number" required>
+            <input type="tel" class="form-control" id="mobile" placeholder="Enter mobile number" required
+            ngModel name="mobile" #mobile="ngModel" pattern="^[0-9]{10}$">
+            <div *ngIf="form.submitted && mobile.invalid" class="text-danger">
+                Mobile number is required and must be 10 digits.
+            </div>
         </div>
         <div class="mb-3">
             <label for="fatherName" class="form-label">Father's Name</label>
-            <input type="text" class="form-control" id="fatherName" placeholder="Enter father's name" required>
+            <input type="text" class="form-control" id="fatherName" placeholder="Enter father's name" required
+            ngModel name="fatherName" #fatherName="ngModel">
+            <div *ngIf="form.submitted && fatherName.invalid" class="text-danger">
+                Father's name is required.
+            </div>
         </div>
         <button type="submit" class="btn btn-primary form-control">Register</button>
     </form>

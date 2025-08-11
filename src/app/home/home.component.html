@@ -15,7 +15,10 @@
                 <div class="col-8">
                     <input id="date" class="form-control" type="date"
                            [(ngModel)]="selectedDate"
-                           name="date">
+                           name="date"
+                           (change)="updateChart(input)"
+                           #input
+                    >
                 </div>
             </div>
             <div class="mb-3 row">
@@ -25,7 +28,7 @@
                 <div class="col-8">
                     <select id="class" class="form-select" [(ngModel)]="selectedClass" name="class">
                         <option [ngValue]="null" selected>All</option>
-                        <option *ngFor="let cls of classes" [ngValue]="cls">{{ cls.grade + " | " + cls.medium + ( cls.gender ? " | " + cls.gender.toUpperCase() : "" ) }}</option>
+                        <option *ngFor="let cls of classes" [ngValue]="cls">{{ cls.name }}</option>
                     </select>
                 </div>
             </div>
@@ -54,7 +57,7 @@
             <canvas id="attendance-summary"></canvas>
         </div>
         <div class="fixed-bottom text-center mb-3 p-3">
-            <button class="btn btn-success form-control" type="button" [disabled]="selectedClass == null" (click)="navigate('/mark-attendance', {'class-id': selectedClass?.id, 'date': selectedDate})">Mark Attendance</button>
+            <button class="btn btn-success form-control" type="button" [disabled]="selectedClass == null" (click)="navigate('/mark-attendance', {'class-id': selectedClass?.ID, 'date': selectedDate})">Mark Attendance</button>
         </div>
 
     </div>

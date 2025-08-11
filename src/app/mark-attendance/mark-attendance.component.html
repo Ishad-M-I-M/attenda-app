@@ -1,8 +1,7 @@
 <app-page-container title="Mark Attendance">
     <div *ngIf="classId != null && date != null; else error">
         <div>
-            <h4>Mark Attendance for Grade {{ class?.grade }}
-                | {{ class?.medium }} {{ class?.gender == null ? '' : '|' + class?.gender }}</h4>
+            <h4>Mark Attendance for {{classAttendance?.class_name}}</h4>
         </div>
         <div class="row mt-3 mb-3">
             <div class="col-6">
@@ -36,11 +35,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let record of attendanceRecords; let i = index">
+                <tr *ngFor="let record of classAttendance?.students; let i = index">
                     <th scope="row" class="text-center">{{ i + 1 }}</th>
-                    <td>{{ record.studentName }}</td>
+                    <td>{{ record.student_name }}</td>
                     <td class="text-center">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="record.attended">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="record.present"
+                               (click)="updatePresentCount(checkbox)" #checkbox>
                     </td>
                 </tr>
                 </tbody>
