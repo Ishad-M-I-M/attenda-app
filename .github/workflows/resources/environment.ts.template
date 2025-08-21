@@ -1,0 +1,8 @@
+export const environment = {
+  production: true,
+  apiUrl: '${API_URL}',
+  signInRedirectUrl: '${SIGNIN_REDIRECT_URL}',
+  clientID: '${CLIENT_ID}',
+  baseUrl: 'https://api.asgardeo.io/t/${ASGARDEO_ORG}',
+  scope: ['openid', 'profile']
+};
