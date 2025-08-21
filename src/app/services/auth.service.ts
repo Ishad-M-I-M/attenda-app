@@ -35,4 +35,8 @@ export class AuthService {
   getBasicUserInfo() {
     return this.auth!.getBasicUserInfo();
   }
+
+  getAccessToken() {
+    return this.auth!.getAccessToken();
+  }
 }
