@@ -1,0 +1,16 @@
+{
+  "build": {
+    "env": {
+      "API_URL": "@api_url",
+      "ASGARDEO_CLIENT_ID": "@client_id",
+      "ASGARDEO_BASE_URL": "@base_url",
+      "VERCEL_URL": "@vercel_url"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
