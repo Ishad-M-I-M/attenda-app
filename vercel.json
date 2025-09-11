@@ -7,6 +7,7 @@
       "VERCEL_URL": "$vercel_url"
     }
   },
+  "buildCommand": "sh build-env-replace.sh",
   "routes": [
     {
       "src": "/(.*)",
